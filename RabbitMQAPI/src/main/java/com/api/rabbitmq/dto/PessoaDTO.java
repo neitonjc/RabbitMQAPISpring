@@ -1,7 +1,6 @@
 package com.api.rabbitmq.dto;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 public class PessoaDTO implements Serializable {
 	/**
@@ -12,5 +11,8 @@ public class PessoaDTO implements Serializable {
 	public String nome;
 	public String email;
 	public String cep;
-	public Date dtNasc;
+	public String rua;
+	public String bairro;
+	public String cidade;
+	public String uf;
 }
