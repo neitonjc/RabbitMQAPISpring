@@ -31,7 +31,7 @@ public class PessoaController {
 	public ResponseEntity<PessoaDTO> enviarMsgSincrona(@RequestBody PessoaDTO pessoa){
 		PessoaDTO p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_2, pessoa);
 		
-		return new ResponseEntity<PessoaDTO>(p, HttpStatus.OK);
+		return new ResponseEntity<PessoaDTO>(p, p==null ? HttpStatus.SERVICE_UNAVAILABLE : HttpStatus.OK);
 	}
 
 }

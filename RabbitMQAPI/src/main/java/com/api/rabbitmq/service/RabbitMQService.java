@@ -17,6 +17,7 @@ public class RabbitMQService {
 	}
 	
 	public PessoaDTO enviaMsgSincrona(String nomeFila, Object msg) {
+		this.rabbitTemplate.setReplyTimeout(6000);
 		PessoaDTO retorno = (PessoaDTO) this.rabbitTemplate.convertSendAndReceive(nomeFila, msg);
 		
 		return retorno;
