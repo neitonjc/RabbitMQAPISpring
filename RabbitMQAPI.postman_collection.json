@@ -1,0 +1,68 @@
+{
+	"info": {
+		"_postman_id": "79686146-7299-433c-90f5-328b0f5cd5e0",
+		"name": "RabbitMQAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "enviarMsgAssincrona",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"NEITON JUNIOR CARNEIRO\",\r\n    \"email\": \"neitonjunior@hotmail.com\",\r\n    \"cep\": \"84165140\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/msgAssinc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"msgAssinc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enviarMsgSincrona",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"neiton junior carneiro\",\r\n    \"email\": \"NEITONJUNIOR@HOTMAIL.com\",\r\n    \"cep\": \"84165690\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/msgSinc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"msgSinc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
