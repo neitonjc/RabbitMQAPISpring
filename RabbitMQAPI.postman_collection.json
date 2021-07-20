@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"NEITON JUNIOR CARNEIRO\",\r\n    \"email\": \"neitonjunior@hotmail.com\",\r\n    \"cep\": \"84165140\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"JOSE DA SILVA\",\r\n    \"email\": \"jose@hotmail.com\",\r\n    \"cep\": \"84165140\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +43,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nome\": \"neiton junior carneiro\",\r\n    \"email\": \"NEITONJUNIOR@HOTMAIL.com\",\r\n    \"cep\": \"84165690\"\r\n}",
+					"raw": "{\r\n    \"nome\": \"jose da silva\",\r\n    \"email\": \"JOSE@HOTMAIL.COM\",\r\n    \"cep\": \"84165690\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
