@@ -1,5 +1,8 @@
 package com.api.rabbitmq.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +19,11 @@ public class RabbitMQService {
 		this.rabbitTemplate.convertAndSend(nomeFila, msg);
 	}
 	
-	public PessoaDTO enviaMsgSincrona(String nomeFila, Object msg) {
+	public List<PessoaDTO> enviaMsgSincrona(String nomeFila, Object msg) {
 		this.rabbitTemplate.setReplyTimeout(6000);
-		PessoaDTO retorno = (PessoaDTO) this.rabbitTemplate.convertSendAndReceive(nomeFila, msg);
+		
+		@SuppressWarnings("unchecked")
+		List<PessoaDTO> retorno = (ArrayList<PessoaDTO>) this.rabbitTemplate.convertSendAndReceive(nomeFila, msg);
 		
 		return retorno;
 	}

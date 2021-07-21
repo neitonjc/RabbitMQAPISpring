@@ -42,21 +42,25 @@ public class RabbitMQConnection {
 	
 	@PostConstruct
 	private void adiciona() {
-		Queue fila1 = fila(RabbitMQConstantes.FILA_1);
-		Queue fila2 = fila(RabbitMQConstantes.FILA_2);
+		Queue filaIncluir = fila(RabbitMQConstantes.FILA_INCLUIR);
+		Queue filaListar = fila(RabbitMQConstantes.FILA_LISTAR);
+		Queue filaListarPorNome = fila(RabbitMQConstantes.FILA_LISTAR_POR_NOME);
 		
 		DirectExchange troca = trocaDireta();
 		
-		Binding link1 = relacionamento(fila1, troca);
-		Binding link2 = relacionamento(fila2, troca);
+		Binding linkIncluir = relacionamento(filaIncluir, troca);
+		Binding linkListar = relacionamento(filaListar, troca);
+		Binding linkListarPorNome = relacionamento(filaListarPorNome, troca);
 		
-		this.amqpAdmin.declareQueue(fila1);
-		this.amqpAdmin.declareQueue(fila2);
+		this.amqpAdmin.declareQueue(filaIncluir);
+		this.amqpAdmin.declareQueue(filaListar);
+		this.amqpAdmin.declareQueue(filaListarPorNome);
 		
 		this.amqpAdmin.declareExchange(troca);
 		
-		this.amqpAdmin.declareBinding(link1);
-		this.amqpAdmin.declareBinding(link2);
+		this.amqpAdmin.declareBinding(linkIncluir);
+		this.amqpAdmin.declareBinding(linkListar);
+		this.amqpAdmin.declareBinding(linkListarPorNome);
 		
 	}
 	

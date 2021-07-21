@@ -1,63 +1,63 @@
 package com.api.consumer.listener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import com.api.consumer.constantes.RabbitMQConstantes;
+import com.api.consumer.model.Pessoa;
+import com.api.consumer.service.PessoaService;
 import com.api.rabbitmq.dto.PessoaDTO;
-import com.api.rabbitmq.dto.RetornoCepDTO;
 
 @Component
 public class PessoaConsumer {
 	
-	@RabbitListener(queues = RabbitMQConstantes.FILA_1)
-	private void consumidor(PessoaDTO pessoa) throws Exception {
-		if(pessoa.nome.isEmpty())
-			throw new RuntimeException(">>>>>>>>>>>--ERRO--<<<<<<<<<<<");
+	@Autowired
+	PessoaService service;
+	
+	@RabbitListener(queues = RabbitMQConstantes.FILA_INCLUIR)
+	private void incluir(PessoaDTO pessoa) throws Exception {
+		service.incluir(new Pessoa(null, pessoa.nome, pessoa.email, pessoa.cep));
 		
-		System.out.println("---------");
-		System.out.println(pessoa.nome);
-		System.out.println(pessoa.email);
-		System.out.println(pessoa.cep);
-		System.out.println("---------");
+		System.out.println("----SUCESSO!!!!-----");
 	}
 	
-	@RabbitListener(queues = RabbitMQConstantes.FILA_2)
-	private PessoaDTO consumidorComRetorno(PessoaDTO pessoa) throws Exception {
-		if(pessoa.nome.isEmpty())
-			throw new RuntimeException(">>>>>>>>>>>--ERRO--<<<<<<<<<<<");
+	@RabbitListener(queues = RabbitMQConstantes.FILA_LISTAR)
+	private List<PessoaDTO> listarPessoas(PessoaDTO pessoa) throws Exception {
+		List<Pessoa> pessoas = service.listar();
+		List<PessoaDTO> listaRetorno = new ArrayList<PessoaDTO>(); 
+		for (Pessoa p : pessoas) {
+			listaRetorno.add(new PessoaDTO(p.getNome(), 
+										   p.getEmail(), 
+										   p.getCep(), 
+										   p.getRua(), 
+										   p.getBairro(), 
+										   p.getCidade(), 
+										   p.getUf()));
+		}
 		
-		pessoa.nome = pessoa.nome.toUpperCase();
-		pessoa.email = pessoa.email.toLowerCase();
-		
-		montaObj(pessoa);
-		
-		return pessoa;
-	}
-
-	private void montaObj(PessoaDTO pessoa) {
-		RetornoCepDTO o = consumerCEP(pessoa.cep);
-		pessoa.rua = o.logradouro;
-		pessoa.cep = o.cep;
-		pessoa.bairro = o.bairro;
-		pessoa.cidade = o.localidade;
-		pessoa.uf = o.uf;
+		return listaRetorno;
 	}
 	
-	public RetornoCepDTO consumerCEP(String cep){
-		RestTemplate template = new RestTemplate();
+	@RabbitListener(queues = RabbitMQConstantes.FILA_LISTAR_POR_NOME)
+	private List<PessoaDTO> listarPessoas(String nome) throws Exception {
+		List<Pessoa> pessoas = service.listarPorNome(nome);
+		List<PessoaDTO> listaRetorno = new ArrayList<PessoaDTO>(); 
+		for (Pessoa p : pessoas) {
+			listaRetorno.add(new PessoaDTO(p.getNome(), 
+										   p.getEmail(), 
+										   p.getCep(), 
+										   p.getRua(), 
+										   p.getBairro(), 
+										   p.getCidade(), 
+										   p.getUf()));
+		}
 		
-		UriComponents uri = UriComponentsBuilder.newInstance()
-				.scheme("https")
-				.host("viacep.com.br/")
-				.path("ws/"+cep+"/json/")
-				.queryParam ("fields", "all")
-				.build();
-		
-		return template.getForEntity(uri.toUriString(), RetornoCepDTO.class).getBody();
+		return listaRetorno;
 	}
+	
 
 }

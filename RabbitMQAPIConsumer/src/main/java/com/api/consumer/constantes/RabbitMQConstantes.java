@@ -1,6 +1,7 @@
 package com.api.consumer.constantes;
 
 public class RabbitMQConstantes {
-	public static final String FILA_1 = "FILA 1";
-	public static final String FILA_2 = "FILA 2";
+	public static final String FILA_INCLUIR = "Incluir";
+	public static final String FILA_LISTAR = "Listar";
+	public static final String FILA_LISTAR_POR_NOME = "ListarPorNome";
 }
