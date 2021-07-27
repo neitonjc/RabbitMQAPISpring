@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "79686146-7299-433c-90f5-328b0f5cd5e0",
+		"name": "RabbitMQAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "incluirAssíncrono",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"pafuncio\",\r\n    \"email\": \"paf@gmail.com\",\r\n    \"cep\": \"84165590\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/incluirAssinc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"incluirAssinc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listarPorNome",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/listarPorNome?nome=JÃO",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"listarPorNome"
+					],
+					"query": [
+						{
+							"key": "nome",
+							"value": "JÃO"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listar",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/listar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
