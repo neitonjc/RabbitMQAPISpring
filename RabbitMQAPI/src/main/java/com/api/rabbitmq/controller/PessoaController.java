@@ -28,6 +28,7 @@ public class PessoaController {
 		this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_INCLUIR, pessoa);
 	}
 	
+	
 	@GetMapping(path="/listar")
 	public ResponseEntity<Object> listar(){
 		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, new PessoaDTO());
