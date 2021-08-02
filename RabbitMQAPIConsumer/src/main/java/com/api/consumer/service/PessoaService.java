@@ -55,16 +55,17 @@ public class PessoaService {
 	}
 	
 	public RetornoCepDTO consumerCEP(String cep){
-		RestTemplate template = new RestTemplate();
-		
-		UriComponents uri = UriComponentsBuilder.newInstance()
-				.scheme("https")
-				.host("viacep.com.br/")
-				.path("ws/"+cep+"/json/")
-				.queryParam ("fields", "all")
-				.build();
-		
-		return template.getForEntity(uri.toUriString(), RetornoCepDTO.class).getBody();
+//		RestTemplate template = new RestTemplate();
+//		
+//		UriComponents uri = UriComponentsBuilder.newInstance()
+//				.scheme("https")
+//				.host("viacep.com.br/")
+//				.path("ws/"+cep+"/json/")
+//				.queryParam ("fields", "all")
+//				.build();
+//		
+//		return template.getForEntity(uri.toUriString(), RetornoCepDTO.class).getBody();
+		return new RetornoCepDTO();
 	}
 
 }
