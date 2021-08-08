@@ -41,5 +41,14 @@ public class PessoaController {
 		
 		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
 	}
+	
+	@PostMapping(path="/gerarMsg")
+	@ResponseStatus(HttpStatus.OK)
+	public void gerarMsg() {
+		for(int i=1; i<=100000; i++) {
+			this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_DISP_MASSA, "---MENSAGEM " + i );
+			System.out.println("---MENSAGEM " + i + " ENVIADA!!!!");
+		}
+	}
 
 }

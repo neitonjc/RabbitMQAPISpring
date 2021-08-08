@@ -25,6 +25,11 @@ public class PessoaConsumer {
 		System.out.println("----SUCESSO!!!!-----");
 	}
 	
+	@RabbitListener(queues = RabbitMQConstantes.FILA_DISP_MASSA)
+	private void receberMsg(String s) throws Exception {
+		System.out.println(s+" RECEBIDA!!!!");
+	}
+	
 	@RabbitListener(queues = RabbitMQConstantes.FILA_LISTAR)
 	private List<PessoaDTO> listarPessoas(PessoaDTO pessoa) throws Exception {
 		List<Pessoa> pessoas = service.listar();
