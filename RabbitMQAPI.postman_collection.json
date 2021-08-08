@@ -34,6 +34,34 @@
 			"response": []
 		},
 		{
+			"name": "gerarMsg",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nome\": \"pafuncio\",\r\n    \"email\": \"paf@gmail.com\",\r\n    \"cep\": \"84165590\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/rabbitMQAPI/gerarMsg",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rabbitMQAPI",
+						"gerarMsg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "listarPorNome",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
