@@ -1,9 +1,8 @@
 package com.api.rabbitmq.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,17 +28,18 @@ public class PessoaController {
 		this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_INCLUIR, pessoa);
 	}
 	
-	
 	@GetMapping(path="/listar")
-	public List<PessoaDTO> listar(){
-		List<PessoaDTO> p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, new PessoaDTO());
-		return p;
+	public ResponseEntity<Object> listar(){
+		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, new PessoaDTO());
+		
+		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
 	}
 	
 	@GetMapping(path="/listarPorNome")
-	public List<PessoaDTO> listarPorNome(@RequestParam("nome") String nome){
-		List<PessoaDTO> p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR_POR_NOME, nome);
-		return p;
+	public ResponseEntity<Object> listarPorNome(@RequestParam("nome") String nome){
+		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR_POR_NOME, nome);
+		
+		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
 	}
 
 }
