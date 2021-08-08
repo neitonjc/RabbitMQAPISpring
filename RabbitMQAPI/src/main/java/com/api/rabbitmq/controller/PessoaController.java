@@ -40,7 +40,6 @@ public class PessoaController {
 		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR_POR_NOME, nome);
 		
 		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
-<<<<<<< HEAD
 	}
 	
 	@PostMapping(path="/gerarMsg")
@@ -50,8 +49,6 @@ public class PessoaController {
 			this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_DISP_MASSA, "---MENSAGEM " + i );
 			System.out.println("---MENSAGEM " + i + " ENVIADA!!!!");
 		}
-=======
->>>>>>> 57a4ee83e13e24f1a1db66cf5e3c0f3bd360e108
 	}
 
 }
