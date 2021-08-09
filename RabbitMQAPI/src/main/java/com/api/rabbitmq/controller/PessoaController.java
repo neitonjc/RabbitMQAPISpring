@@ -30,16 +30,28 @@ public class PessoaController {
 	
 	@GetMapping(path="/listar")
 	public ResponseEntity<Object> listar(){
-		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, new PessoaDTO());
+		PessoaDTO pessoa = new PessoaDTO();
+		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, pessoa);
 		
 		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
 	}
 	
 	@GetMapping(path="/listarPorNome")
 	public ResponseEntity<Object> listarPorNome(@RequestParam("nome") String nome){
-		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR_POR_NOME, nome);
+		PessoaDTO pessoa = new PessoaDTO();
+		pessoa.nome = nome;
+		Object p = rabbitMQService.enviaMsgSincrona(RabbitMQConstantes.FILA_LISTAR, pessoa);
 		
 		return new ResponseEntity<Object>(p, p!=null ? HttpStatus.OK : HttpStatus.GATEWAY_TIMEOUT);
+	}
+	
+	@PostMapping(path="/gerarMsg")
+	@ResponseStatus(HttpStatus.OK)
+	public void gerarMsg() {
+		for(int i=1; i<=100000; i++) {
+			this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_DISP_MASSA, "---MENSAGEM " + i );
+			System.out.println("---MENSAGEM " + i + " ENVIADA!!!!");
+		}
 	}
 
 }

@@ -44,23 +44,23 @@ public class RabbitMQConnection {
 	private void adiciona() {
 		Queue filaIncluir = fila(RabbitMQConstantes.FILA_INCLUIR);
 		Queue filaListar = fila(RabbitMQConstantes.FILA_LISTAR);
-		Queue filaListarPorNome = fila(RabbitMQConstantes.FILA_LISTAR_POR_NOME);
+		Queue filaDisparoMassa = fila(RabbitMQConstantes.FILA_DISP_MASSA);
 		
 		DirectExchange troca = trocaDireta();
 		
 		Binding linkIncluir = relacionamento(filaIncluir, troca);
 		Binding linkListar = relacionamento(filaListar, troca);
-		Binding linkListarPorNome = relacionamento(filaListarPorNome, troca);
+		Binding linkDisparoMassa = relacionamento(filaDisparoMassa, troca);
 		
 		this.amqpAdmin.declareQueue(filaIncluir);
 		this.amqpAdmin.declareQueue(filaListar);
-		this.amqpAdmin.declareQueue(filaListarPorNome);
+		this.amqpAdmin.declareQueue(filaDisparoMassa);
 		
 		this.amqpAdmin.declareExchange(troca);
 		
 		this.amqpAdmin.declareBinding(linkIncluir);
 		this.amqpAdmin.declareBinding(linkListar);
-		this.amqpAdmin.declareBinding(linkListarPorNome);
+		this.amqpAdmin.declareBinding(linkDisparoMassa);
 		
 	}
 	

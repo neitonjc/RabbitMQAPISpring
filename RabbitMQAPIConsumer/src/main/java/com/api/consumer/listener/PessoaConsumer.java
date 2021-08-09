@@ -25,9 +25,20 @@ public class PessoaConsumer {
 		System.out.println("----SUCESSO!!!!-----");
 	}
 	
+	@RabbitListener(queues = RabbitMQConstantes.FILA_DISP_MASSA)
+	private void receberMsg(String s) throws Exception {
+		System.out.println(s+" RECEBIDA!!!!");
+	}
+	
 	@RabbitListener(queues = RabbitMQConstantes.FILA_LISTAR)
 	private List<PessoaDTO> listarPessoas(PessoaDTO pessoa) throws Exception {
-		List<Pessoa> pessoas = service.listar();
+		List<Pessoa> pessoas;
+		if(pessoa==null 
+				|| pessoa.nome==null)
+			pessoas = service.listar();
+		else
+			pessoas = service.listarPorNome(pessoa.nome);
+		
 		List<PessoaDTO> listaRetorno = new ArrayList<PessoaDTO>(); 
 		for (Pessoa p : pessoas) {
 			listaRetorno.add(new PessoaDTO(p.getNome(), 
@@ -41,23 +52,5 @@ public class PessoaConsumer {
 		
 		return listaRetorno;
 	}
-	
-	@RabbitListener(queues = RabbitMQConstantes.FILA_LISTAR_POR_NOME)
-	private List<PessoaDTO> listarPessoas(String nome) throws Exception {
-		List<Pessoa> pessoas = service.listarPorNome(nome);
-		List<PessoaDTO> listaRetorno = new ArrayList<PessoaDTO>(); 
-		for (Pessoa p : pessoas) {
-			listaRetorno.add(new PessoaDTO(p.getNome(), 
-										   p.getEmail(), 
-										   p.getCep(), 
-										   p.getRua(), 
-										   p.getBairro(), 
-										   p.getCidade(), 
-										   p.getUf()));
-		}
-		
-		return listaRetorno;
-	}
-	
 
 }
