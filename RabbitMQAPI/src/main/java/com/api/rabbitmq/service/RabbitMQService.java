@@ -1,5 +1,6 @@
 package com.api.rabbitmq.service;
 
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,10 @@ public class RabbitMQService {
 	
 	public void enviaMsgAssincrona(String nomeFila, Object msg) {
 		this.rabbitTemplate.convertAndSend(nomeFila, msg);
+	}
+	
+	public void enviaMsgAssincronaSemConverter(String nomeFila, String msg) {
+		this.rabbitTemplate.send(nomeFila, new Message(msg.getBytes()));
 	}
 	
 	public Object enviaMsgSincrona(String nomeFila, Object msg) {

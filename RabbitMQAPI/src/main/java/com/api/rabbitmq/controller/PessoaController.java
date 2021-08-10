@@ -49,7 +49,7 @@ public class PessoaController {
 	@ResponseStatus(HttpStatus.OK)
 	public void gerarMsg() {
 		for(int i=1; i<=100000; i++) {
-			this.rabbitMQService.enviaMsgAssincrona(RabbitMQConstantes.FILA_DISP_MASSA, "---MENSAGEM " + i );
+			this.rabbitMQService.enviaMsgAssincronaSemConverter(RabbitMQConstantes.FILA_DISP_MASSA, "---MENSAGEM " + i );
 			System.out.println("---MENSAGEM " + i + " ENVIADA!!!!");
 		}
 	}
