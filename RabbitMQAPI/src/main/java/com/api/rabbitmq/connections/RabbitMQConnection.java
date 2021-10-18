@@ -1,19 +1,18 @@
 package com.api.rabbitmq.connections;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.amqp.core.AbstractExchange;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.core.FanoutExchange;
+import org.springframework.amqp.core.HeadersExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.stereotype.Component;
-
-import com.api.rabbitmq.constantes.RabbitMQConstantes;
 
 @Component
 public class RabbitMQConnection {
-	
-	private static final String NOME_EXCHANGE = "amq.direct"; 
 	
 	private AmqpAdmin amqpAdmin;
 	
@@ -21,47 +20,48 @@ public class RabbitMQConnection {
 		this.amqpAdmin = amqpAdmin;
 	}
 	
-	private Queue fila(String nomeFila) {
-		return new Queue(nomeFila, true, false, false);
+	@SuppressWarnings("unused")
+	private Queue createQueue(String queueName) {
 //		Map<String, Object> m = new HashMap<String, Object>();
-//		m.put("message-ttl", 5000);
-//		return new Queue(nomeFila, true, false, false, m);
+//		m.put("x-message-ttl", 15000);
+//		return new Queue(queueName, true, false, false, m);
+		return new Queue(queueName, true, false, false);
 	}
 	
-	private DirectExchange trocaDireta() {
-		return new DirectExchange(NOME_EXCHANGE);
-	}
-	
-	private Binding relacionamento(Queue fila, DirectExchange troca) {
-		return new Binding(fila.getName(), 
+	private Binding bindingExchange(Queue queue, AbstractExchange exchange, String routingKey) {
+		return new Binding(queue.getName(), 
 						   Binding.DestinationType.QUEUE, 
-						   troca.getName(), 
-						   fila.getName(), 
+						   exchange.getName(), 
+						   routingKey, 
 						   null);
 	}
 	
-	@PostConstruct
-	private void adiciona() {
-		Queue filaIncluir = fila(RabbitMQConstantes.FILA_INCLUIR);
-		Queue filaListar = fila(RabbitMQConstantes.FILA_LISTAR);
-		Queue filaDisparoMassa = fila(RabbitMQConstantes.FILA_DISP_MASSA);
+	public void createQueue(String exchangeName, String exchangeType, String queueName, String routingKey) throws RuntimeException {
+		AbstractExchange exchange;
 		
-		DirectExchange troca = trocaDireta();
+		switch (exchangeType) {
+		case ExchangeTypes.DIRECT:
+			exchange = new DirectExchange(exchangeName);
+			break;
+		case ExchangeTypes.FANOUT:
+			exchange = new FanoutExchange(exchangeName);
+			break;
+		case ExchangeTypes.HEADERS:
+			exchange = new HeadersExchange(exchangeName);
+			break;
+		case ExchangeTypes.TOPIC:
+			exchange = new TopicExchange(exchangeName);
+			break;
+		default:
+			throw new RuntimeException("Exchange Type informado não existe!");
+		}
 		
-		Binding linkIncluir = relacionamento(filaIncluir, troca);
-		Binding linkListar = relacionamento(filaListar, troca);
-		Binding linkDisparoMassa = relacionamento(filaDisparoMassa, troca);
+		Queue queue = new Queue(queueName, true, false, false);
+		Binding linkQueueExchange = bindingExchange(queue, exchange, routingKey);
 		
-		this.amqpAdmin.declareQueue(filaIncluir);
-		this.amqpAdmin.declareQueue(filaListar);
-		this.amqpAdmin.declareQueue(filaDisparoMassa);
-		
-		this.amqpAdmin.declareExchange(troca);
-		
-		this.amqpAdmin.declareBinding(linkIncluir);
-		this.amqpAdmin.declareBinding(linkListar);
-		this.amqpAdmin.declareBinding(linkDisparoMassa);
-		
+		this.amqpAdmin.declareQueue(queue);
+		this.amqpAdmin.declareExchange(exchange);
+		this.amqpAdmin.declareBinding(linkQueueExchange);
 	}
 	
 }
