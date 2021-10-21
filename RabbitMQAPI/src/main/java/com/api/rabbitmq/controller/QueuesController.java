@@ -1,6 +1,8 @@
 package com.api.rabbitmq.controller;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,15 +28,15 @@ public class QueuesController {
 	
 	@PostMapping(path="/create")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createQueue(@RequestParam("exchangeName") @NotBlank String exchangeName,
-								  @RequestParam("exchangeType") @NotBlank String exchangeType,
-								  @RequestParam("queueName") @NotBlank String queueName,
-						   		  @RequestParam("routingKey") String routingKey) throws RuntimeException {
+	public void createQueue(@RequestParam("exchangeName") @Valid @NotBlank String exchangeName,
+								  @RequestParam("exchangeType") @NotNull @NotBlank String exchangeType,
+								  @RequestParam("queueName") @NotNull @NotBlank String queueName,
+						   		  @RequestParam("routingKey") String routingKey) {
 		rabbitMQService.createQueue(exchangeName, exchangeType, queueName, routingKey);
 	}
 	
 	@PostMapping(path="/sendAsynchronous")
-	@ResponseStatus(HttpStatus.CREATED)
+	@ResponseStatus(HttpStatus.OK)
 	public void sendAsynchronous(@RequestParam("exchangeName") @NotBlank String exchangeName,
 							    @RequestParam("routingKey") @Nullable String routingKey, 
 			 				    @RequestBody @NotBlank String msg) {
