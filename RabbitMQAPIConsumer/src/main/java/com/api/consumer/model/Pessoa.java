@@ -2,6 +2,8 @@ package com.api.consumer.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,6 +38,9 @@ public class Pessoa {
 	
 	@Column(name="UF")
 	private String uf;
+	
+	@Enumerated(EnumType.STRING)
+	private Genero genero;
 	
 
 	public Pessoa(Integer cod) {
@@ -127,6 +132,14 @@ public class Pessoa {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+	
+	public Genero getGenero() {
+		return genero;
+	}
+
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	@Override

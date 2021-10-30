@@ -11,5 +11,5 @@ import com.api.consumer.model.Pessoa;
 public interface PessoaRepository extends JpaRepository<Pessoa, Integer>{
 	
 	@Query("select e from Pessoa e where e.nome like %:nome%")
-	public List<Pessoa> findByName(@Param("nome") String nome); 
+	List<Pessoa> findByName(@Param("nome") String nome); 
 }
