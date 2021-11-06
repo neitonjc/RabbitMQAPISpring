@@ -1,8 +1,6 @@
 package com.api.rabbitmq.controller;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.rabbitmq.service.RabbitMQService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @Validated
 @RequestMapping({"/queues"})
@@ -26,18 +26,20 @@ public class QueuesController {
 	private RabbitMQService rabbitMQService;
 	
 	
-	@PostMapping(path="/create")
+	@PostMapping(path = "/create")
+	@ApiOperation(value = "Cria Filas")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createQueue(@RequestParam("exchangeName") @Valid @NotBlank String exchangeName,
-								  @RequestParam("exchangeType") @NotNull @NotBlank String exchangeType,
-								  @RequestParam("queueName") @NotNull @NotBlank String queueName,
-						   		  @RequestParam("routingKey") String routingKey) {
+	public void createQueue(@RequestParam("exchangeName") @Nullable String exchangeName,
+								  @RequestParam("exchangeType") @Nullable String exchangeType,
+								  @RequestParam("queueName") @Nullable String queueName,
+						   		  @RequestParam("routingKey") @Nullable String routingKey) {
 		rabbitMQService.createQueue(exchangeName, exchangeType, queueName, routingKey);
 	}
 	
-	@PostMapping(path="/sendAsynchronous")
+	@PostMapping(path = "/sendAsynchronous")
+	@ApiOperation(value = "Envia mensagens para a Exchange e Routing Key selecionadas")
 	@ResponseStatus(HttpStatus.OK)
-	public void sendAsynchronous(@RequestParam("exchangeName") @NotBlank String exchangeName,
+	public void sendAsynchronous(@RequestParam("exchangeName") String exchangeName,
 							    @RequestParam("routingKey") @Nullable String routingKey, 
 			 				    @RequestBody @NotBlank String msg) {
 		rabbitMQService.sendAsynchronous(exchangeName, routingKey, msg);
