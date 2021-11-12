@@ -1,0 +1,12 @@
+services:
+    rabbitmq_api:
+        image: rabbitmq_api
+        container_name: rabbitmq_api
+        restart: always
+        environment:
+            - SPRING_RABBITMQ_HOST=host.docker.internal
+            - SPRING_RABBITMQ_PORT=5672
+            - SPRING_RABBITMQ_USERNAME=admin
+            - SPRING_RABBITMQ_PASSWORD=admin
+        ports:
+            - 8081:8081
