@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.api.rabbitmq.service.RabbitMQService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Validated
+@Api("API Rest Produtora RabbitMQ")
 @RequestMapping({"/queues"})
 public class QueuesController {
 	
