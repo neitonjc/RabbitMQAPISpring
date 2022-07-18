@@ -25,7 +25,7 @@ jobs:
     - name: Build with Maven
       run: mvn -f RabbitMQAPI/pom.xml clean install
       
-    - name: Build and push Dcoker image
+    - name: Build and push Docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
        image: neitonjc/rabbitmq_api
