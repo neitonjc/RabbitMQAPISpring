@@ -39,7 +39,7 @@ public class QueuesController {
 	}
 	
 	@PostMapping(path = "/sendAsynchronous")
-	@ApiOperation(value = "Envia mensagens para a Exchange e Routing Key selecionadas")
+	@ApiOperation(value = "Envia mensagens para a Exchange e/ou Routing Key selecionadas")
 	@ResponseStatus(HttpStatus.OK)
 	public void sendAsynchronous(@RequestParam("exchangeName") String exchangeName,
 							    @RequestParam("routingKey") @Nullable String routingKey, 
