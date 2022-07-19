@@ -17,6 +17,7 @@ import com.api.rabbitmq.service.RabbitMQService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @Validated
@@ -31,19 +32,19 @@ public class QueuesController {
 	@PostMapping(path = "/create")
 	@ApiOperation(value = "Cria Filas")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void createQueue(@RequestParam("exchangeName") @Nullable String exchangeName,
-								  @RequestParam("exchangeType") @Nullable String exchangeType,
-								  @RequestParam("queueName") @Nullable String queueName,
-						   		  @RequestParam("routingKey") @Nullable String routingKey) {
+	public void createQueue(@RequestParam(required = true) String exchangeName,
+								  @RequestParam(required = true) String exchangeType,
+								  @RequestParam(required = true) String queueName,
+						   		  @RequestParam(required = false) String routingKey) {
 		rabbitMQService.createQueue(exchangeName, exchangeType, queueName, routingKey);
 	}
 	
 	@PostMapping(path = "/sendAsynchronous")
 	@ApiOperation(value = "Envia mensagens para a Exchange e/ou Routing Key selecionadas")
 	@ResponseStatus(HttpStatus.OK)
-	public void sendAsynchronous(@RequestParam("exchangeName") String exchangeName,
-							    @RequestParam("routingKey") @Nullable String routingKey, 
-			 				    @RequestBody @NotBlank String msg) {
+	public void sendAsynchronous(@RequestParam(required = true) @ApiParam(value = "Nome Exchange") String exchangeName,
+							     @RequestParam(required = false) @ApiParam(value = "Routing Key") String routingKey, 
+			 				     @RequestBody(required = true) String msg) {
 		rabbitMQService.sendAsynchronous(exchangeName, routingKey, msg);
 	}
 
