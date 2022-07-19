@@ -35,7 +35,7 @@ public class QueuesController {
 	public void createQueue(@RequestParam(required = true) String exchangeName,
 								  @RequestParam(required = true) String exchangeType,
 								  @RequestParam(required = true) String queueName,
-						   		  @RequestParam(required = false) String routingKey) {
+						   		  @RequestParam(required = true) String routingKey) {
 		rabbitMQService.createQueue(exchangeName, exchangeType, queueName, routingKey);
 	}
 	
