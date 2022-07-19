@@ -6,8 +6,6 @@ name: Java CI generate and push a docker image with Maven
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
