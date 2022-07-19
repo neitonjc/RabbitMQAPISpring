@@ -1,3 +1,3 @@
 FROM adoptopenjdk/openjdk11:latest
-ADD RabbitMQAPI/target/rabbitmq_api-0.0.2.jar rabbitmq_api-0.0.2.jar
+ADD RabbitMQAPI/target/rabbitmq_api.jar rabbitmq_api.jar
 ENTRYPOINT ["java", "-jar", "/opt/app/rabbitmq_api.jar"]
