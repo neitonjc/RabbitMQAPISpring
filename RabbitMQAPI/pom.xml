@@ -12,7 +12,7 @@
 
 	<groupId>com.api</groupId>
 	<artifactId>rabbitmq_api</artifactId>
-	<version>0.0.5</version>
+<!-- 	<version>0.0.5</version> -->
 	<packaging>jar</packaging>
 	<name>RabbitMQAPI</name>
 	<description>API RabbitMQ</description>
@@ -57,7 +57,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>rabbitmq_api</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
