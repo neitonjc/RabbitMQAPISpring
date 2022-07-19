@@ -1,3 +1,4 @@
 FROM adoptopenjdk/openjdk11:latest
-ADD RabbitMQAPI/target/rabbitmq_api.jar rabbitmq_api.jar
-ENTRYPOINT ["java", "-jar", "/app/rabbitmq_api.jar"]
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} rabbitmq_api.jar
+ENTRYPOINT ["java", "-jar", "/rabbitmq_api.jar"]
