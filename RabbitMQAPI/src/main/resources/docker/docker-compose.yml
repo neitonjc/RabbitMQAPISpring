@@ -1,7 +1,8 @@
+version: '2'
 services:
     rabbitmq_api:
-        image: rabbitmq_api
         container_name: rabbitmq_api
+        image: neitonjc/rabbitmq_api:latest
         restart: always
         environment:
             - SPRING_RABBITMQ_HOST=host.docker.internal
