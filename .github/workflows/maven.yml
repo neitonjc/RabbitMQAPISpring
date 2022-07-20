@@ -32,3 +32,13 @@ jobs:
        dockerfile: Dockerfile
        username: ${{ secrets.DOCKERHUB_USER }}
        password: ${{ secrets.DOCKERHUB_PASS }}
+       
+  deploy:
+ 
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Run docker compose
+    - run: docker-compose up -d
+       
+ 
