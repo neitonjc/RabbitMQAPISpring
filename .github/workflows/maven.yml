@@ -33,4 +33,12 @@ jobs:
        username: ${{ secrets.DOCKERHUB_USER }}
        password: ${{ secrets.DOCKERHUB_PASS }}
        
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Run docker compose
+	    run: echo Deploy container test!
+      
+       
  
