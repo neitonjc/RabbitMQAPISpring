@@ -1,10 +1,7 @@
 package com.api.rabbitmq.controller;
 
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,11 +37,11 @@ public class QueuesController {
 	}
 	
 	@PostMapping(path = "/sendAsynchronous")
-	@ApiOperation(value = "Envia mensagens para a Exchange e/ou Routing Key selecionadas")
+	@ApiOperation(value = "Envia mensagens para a Exchange e Routing Key selecionadas")
 	@ResponseStatus(HttpStatus.OK)
 	public void sendAsynchronous(@RequestParam(required = true) @ApiParam(value = "Nome Exchange") String exchangeName,
 							     @RequestParam(required = false) @ApiParam(value = "Routing Key") String routingKey, 
-			 				     @RequestBody(required = true) String msg) {
+			 				     @RequestBody(required = true) @ApiParam(value = "Mensagem") String msg) {
 		rabbitMQService.sendAsynchronous(exchangeName, routingKey, msg);
 	}
 
