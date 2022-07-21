@@ -27,7 +27,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
        image: neitonjc/rabbitmq_api
-       tags: 0.0.7, latest
+       tags: 0.0.8, latest
        registry: docker.io
        dockerfile: Dockerfile
        username: ${{ secrets.DOCKERHUB_USER }}
