@@ -38,7 +38,7 @@ jobs:
     needs: build
     steps:
      - name: Run docker-compose
-       run: cd rabbitmq-api && docker-compose stop && docker-compose pull && docker-compose up -d
+       run: cd rabbitmq-api/ && docker-compose stop && docker-compose pull && docker-compose up -d
      - name: Check running containers
        run: docker ps -a
       
