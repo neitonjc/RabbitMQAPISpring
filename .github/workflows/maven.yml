@@ -38,7 +38,7 @@ jobs:
     needs: build
     steps:
      - name: Run docker compose
-       run: docker-compose up -d
+       run: RabbitMQAPI/docker-compose up -d
       
        
  
