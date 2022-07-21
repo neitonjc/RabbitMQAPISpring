@@ -39,7 +39,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run docker compose
-      run: RabbitMQAPI/src/main/resources/docker/docker-compose up
+      run: /opt/testes_apis/api_rabbit/docker-compose up
     - name: Check running containers
       run: docker ps -a
       
