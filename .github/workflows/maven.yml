@@ -37,9 +37,14 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
-    - uses: actions/checkout@v3
     - name: Run docker compose
-      run: RabbitMQAPI/docker-compose up -d
+      uses: wshihadeh/docker-deployment-action@v1
+      with:
+        deployment_mode: docker-compose
+        copy_stack_file: true
+        deploy_path: /root/opt/testes_apis/api_rabbit/
+        args: up -d
+        docker_prune: 'false'
     - name: Check running containers
       run: docker ps -a
       
