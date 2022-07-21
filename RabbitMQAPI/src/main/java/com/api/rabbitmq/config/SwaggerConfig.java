@@ -29,8 +29,8 @@ public class SwaggerConfig {
 	@SuppressWarnings("rawtypes")
 	private ApiInfo metaInfo() {
 		ApiInfo apiInfo = new ApiInfo("RabbitMQ API", 
-									  "API para testes de criação de filas e mensagens",
-									  "1.0", 
+									  "API para testes de criação de filas e mensagens no RabbitMq",
+									  "1.1", 
 									  "Termos de Serviço", 
 									  new Contact("Neiton Junior Carneiro", "https://github.com/neitonjc/", "neitonjc@gmail.com"), null, null, new ArrayList<VendorExtension>()
 						);
