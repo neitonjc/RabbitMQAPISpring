@@ -37,7 +37,7 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
-     - name: Run docker-compose
+     - name: Run docker-compose.
        run: docker-compose up -d
      - name: Check running containers
        run: docker ps -a
