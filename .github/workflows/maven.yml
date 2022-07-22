@@ -40,6 +40,7 @@ jobs:
       SPRING_RABBITMQ_PORT: ${{ secrets.SPRING_RABBITMQ_PORT }}
       SPRING_RABBITMQ_USERNAME: ${{ secrets.SPRING_RABBITMQ_USERNAME }}
       SPRING_RABBITMQ_PASSWORD: ${{ secrets.SPRING_RABBITMQ_PASSWORD }}
+      url: http://10.100.4.74:8081/rabbitmq_api/swagger-ui/
     needs: build
     steps:
      - name: Run docker-compose
