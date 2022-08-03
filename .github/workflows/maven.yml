@@ -50,7 +50,7 @@ jobs:
        image: neitonjc/rabbitmq_api
        tags: 0.0.8, latest
        registry: docker.io
-       dockerfile: RabbitMQAPI/Dockerfile
+       dockerfile: Dockerfile
        username: ${{ secrets.DOCKERHUB_USER }}
        password: ${{ secrets.DOCKERHUB_PASS }}
        
