@@ -39,6 +39,7 @@ jobs:
         run: | 
           cd ./RabbitMQAPI
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=neitonjc_RabbitMQAPISpring
+          mvn -B spring-boot:build-image
             
   pushDockerHub:
     runs-on: ubuntu-latest
@@ -50,7 +51,6 @@ jobs:
        image: neitonjc/rabbitmq_api
        tags: 0.0.8, latest
        registry: docker.io
-       dockerfile: /RabbitMQAPI/Dockerfile
        username: ${{ secrets.DOCKERHUB_USER }}
        password: ${{ secrets.DOCKERHUB_PASS }}
        
