@@ -39,6 +39,8 @@ jobs:
         run: | 
           cd ./RabbitMQAPI
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=neitonjc_RabbitMQAPISpring
+      - name: Build with Maven
+        run: mvn -f RabbitMQAPI/pom.xml clean install
             
   pushDockerHub:
     runs-on: ubuntu-latest
