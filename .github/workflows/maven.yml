@@ -43,6 +43,7 @@ jobs:
         run: | 
           cd ./RabbitMQAPI/target
           ls -a
+          cd ..
             
   pushDockerHub:
     runs-on: ubuntu-latest
