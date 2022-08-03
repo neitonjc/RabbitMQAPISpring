@@ -41,6 +41,7 @@ jobs:
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=neitonjc_RabbitMQAPISpring
             
   build:
+    name: Maven build and push to docker hub
     runs-on: ubuntu-latest
     needs: sonarAnalysis
     steps:      
@@ -64,6 +65,7 @@ jobs:
        password: ${{ secrets.DOCKERHUB_PASS }}
        
   deploy:
+    name: Deploy server on premise
     runs-on: self-hosted
     env:
       SPRING_RABBITMQ_HOST: ${{ secrets.SPRING_RABBITMQ_HOST }}
