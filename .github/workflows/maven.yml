@@ -39,11 +39,6 @@ jobs:
         run: | 
           cd ./RabbitMQAPI
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=neitonjc_RabbitMQAPISpring
-      - name: List the target directory
-        run: | 
-          cd ./RabbitMQAPI/target
-          ls -a
-          cd ..
             
   pushDockerHub:
     runs-on: ubuntu-latest
