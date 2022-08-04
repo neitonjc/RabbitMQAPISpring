@@ -23,6 +23,7 @@ jobs:
   sonarAnalysis:
     name: Analyze with SonarCloud
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - uses: actions/checkout@v2
         with:
