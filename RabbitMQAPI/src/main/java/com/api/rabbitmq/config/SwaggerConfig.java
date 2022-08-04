@@ -9,7 +9,6 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -26,15 +25,13 @@ public class SwaggerConfig {
 				.apiInfo(metaInfo());
 	}
 
-	@SuppressWarnings("rawtypes")
 	private ApiInfo metaInfo() {
-		ApiInfo apiInfo = new ApiInfo("RabbitMQ API", 
+		return new ApiInfo("RabbitMQ API", 
 									  "API para testes de criação de filas e mensagens no RabbitMQ",
 									  "1.8", 
 									  "Termos de Serviço", 
-									  new Contact("Neiton Junior Carneiro", "https://github.com/neitonjc/", "neitonjc@gmail.com"), null, null, new ArrayList<VendorExtension>()
+									  new Contact("Neiton Junior Carneiro", "https://github.com/neitonjc/", "neitonjc@gmail.com"), null, null, new ArrayList<>()
 						);
-		return apiInfo;
 	}
 
 }
