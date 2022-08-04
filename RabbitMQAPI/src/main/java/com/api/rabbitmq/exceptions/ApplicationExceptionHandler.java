@@ -17,7 +17,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 	@ExceptionHandler({RuntimeException.class, ConstraintViolationException.class, MethodArgumentNotValidException.class})
 	public ResponseEntity<ExceptionDTO> handleException(Exception e){
 		ExceptionDTO erro = new ExceptionDTO(HttpStatus.BAD_REQUEST.value(), e.getMessage());
-		return new ResponseEntity<ExceptionDTO>(erro, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
 	}
 	
 }
