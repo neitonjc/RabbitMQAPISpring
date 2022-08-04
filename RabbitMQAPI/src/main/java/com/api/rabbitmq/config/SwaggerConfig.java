@@ -27,11 +27,11 @@ public class SwaggerConfig {
 
 	private ApiInfo metaInfo() {
 		return new ApiInfo("RabbitMQ API", 
-									  "API para testes de criação de filas e mensagens no RabbitMQ",
-									  "1.9", 
-									  "Termos de Serviço", 
-									  new Contact("Neiton Junior Carneiro", "https://github.com/neitonjc/", "neitonjc@gmail.com"), null, null, new ArrayList<>()
-						);
+						   "API para testes de criação de filas e mensagens no RabbitMQ",
+						   "1.9", 
+						   "Termos de Serviço", 
+						   new Contact("Neiton Junior Carneiro", "https://github.com/neitonjc/", "neitonjc@gmail.com"), null, null, new ArrayList<>()
+			);
 	}
 
 }
