@@ -1,0 +1,42 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: Java CI CD generate and push a docker image with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+    name: Maven build and push to docker hub
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build with Maven
+      run: mvn -f RabbitMQAPI/pom.xml clean install
+    - name: Build and push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+       image: neitonjc/rabbitmq_api
+       tags: 0.0.8, latest
+       registry: docker.io
+       dockerfile: Dockerfile
+       username: ${{ secrets.DOCKERHUB_USER }}
+       password: ${{ secrets.DOCKERHUB_PASS }}
+       
+  deploy:
+    name: Deploy server on premise
+    runs-on: self-hosted
+    env:
+      SPRING_RABBITMQ_HOST: ${{ secrets.SPRING_RABBITMQ_HOST }}
+      SPRING_RABBITMQ_PORT: ${{ secrets.SPRING_RABBITMQ_PORT }}
+      SPRING_RABBITMQ_USERNAME: ${{ secrets.SPRING_RABBITMQ_USERNAME }}
+      SPRING_RABBITMQ_PASSWORD: ${{ secrets.SPRING_RABBITMQ_PASSWORD }}
+    needs: build
+    steps:
+     - name: Run docker-compose
+       run: docker-compose -f /opt/testes_apis/api_rabbit/docker-compose.yml stop && docker-compose -f /opt/testes_apis/api_rabbit/docker-compose.yml pull && docker-compose -f /opt/testes_apis/api_rabbit/docker-compose.yml up -d
+     - name: Check running containers
+       run: docker ps -a

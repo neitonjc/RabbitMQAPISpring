@@ -4,3 +4,4 @@
 - MySql 
 - Docker
 - Swagger
+- Java 11

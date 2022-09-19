@@ -9,12 +9,14 @@
 		<version>2.5.2</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.api</groupId>
 	<artifactId>rabbitmq_api</artifactId>
 <!-- 	<version>0.0.6</version> -->
 	<packaging>jar</packaging>
 	<name>RabbitMQAPI</name>
 	<description>API RabbitMQ</description>
+
 	<properties>
 		<java.version>11</java.version>
 		<sonar.organization>neitonjc</sonar.organization>
